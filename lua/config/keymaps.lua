@@ -29,4 +29,15 @@ map({ "n", "v" }, "g<C-i>", function()
   require("dial.map").manipulate("increment", "gnormal")
 end)
 
+map("v", "<leader>st", "gsa", { desc = "Surround with tag" })
+
+vim.api.nvim_create_user_command("AddSurroundingTag", function()
+  vim.cmd("normal vat")
+  vim.schedule(function()
+    vim.cmd("normal gsat")
+  end)
+end, { desc = "Adds surround HTML tag" })
+
+vim.keymap.set("n", "<C-t>", ":AddSurroundingTag<CR>", { desc = "Add Surrounding HTML Tag" })
+
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
